@@ -19,7 +19,7 @@ export const errorResponse = (
 
 export const successResponse = (
   res: Response,
-  { statusCode = 200, message = "Success", payload = {} }
+  { statusCode = 200, message = "Success", payload = {} as any }
 ) => {
   return res.status(statusCode).json({
     success: true,

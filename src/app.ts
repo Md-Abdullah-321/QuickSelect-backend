@@ -14,6 +14,7 @@ import express, {
   Response,
 } from "express";
 import { errorResponse } from "./controllers/responseController.js";
+import emailRouter from "./routers/emailRouters.js";
 const app = express();
 
 //Handle Global Middleware
@@ -27,6 +28,9 @@ app.get("/", (req, res) => {
     message: "Welcome to QuickSelect!",
   });
 });
+
+//Add All Routers
+app.use("/api/email", emailRouter);
 
 //Handle Global Middleware
 const errorHandler: ErrorRequestHandler = (
