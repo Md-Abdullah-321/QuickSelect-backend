@@ -31,10 +31,12 @@ export const getEmails = async (
       return;
     }
 
+    const body: any = [];
     messages.forEach((message: any) => {
-      const headers = message.parts[0].body;
-      console.log(headers);
+      body.push(message.parts[0].body);
     });
+
+    return body;
   } catch (err) {
     console.error("Error fetching emails:", err);
   }

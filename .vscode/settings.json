@@ -1,0 +1,13 @@
+{
+  "sqltools.connections": [
+    {
+      "previewLimit": 50,
+      "server": "localhost",
+      "port": 5432,
+      "driver": "PostgreSQL",
+      "name": "QuickSelect",
+      "database": "mdabdull_quickselect",
+      "username": "mdabdull_Md-Abdullah-321"
+    }
+  ]
+}

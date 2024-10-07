@@ -56,11 +56,24 @@ export const handleGetEmails = async (
     // Fetch emails from the IMAP server
     const emails = await getEmails(config, "INBOX", "ALL");
 
+    const formattedEmails: any = [];
+    emails.forEach((email: any) => {
+      const name = email.from[0].split("<")[0];
+      const from = email.from[0].split("<")[1].slice(0, -1);
+      formattedEmails.push({
+        sender: name,
+        from,
+        to: email.to[0],
+        subject: email.subject[0],
+        date: email.date[0],
+      });
+    });
+
     // Respond with the fetched emails
     return successResponse(res, {
       statusCode: 200,
       message: "Success",
-      payload: emails,
+      payload: formattedEmails,
     });
   } catch (error) {
     next(error);

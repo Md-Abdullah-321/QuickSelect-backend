@@ -1,0 +1,23 @@
+services:
+  db:
+    image: postgres:latest
+    restart: always
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: mdabdull_quickselect
+      POSTGRES_USER: mdabdull_Md-Abdullah-321
+      POSTGRES_PASSWORD: Md-Abdullah-321
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+
+volumes:
+  pgdata:
