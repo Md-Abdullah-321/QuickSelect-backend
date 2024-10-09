@@ -1,0 +1,14 @@
+model IMAP {
+    id           Int     @id @default(autoincrement())
+    imapUser     String
+    imapPassword String
+    host         String
+    port         Int
+    tls          Boolean
+    authTimeout  Int
+    user         User    @relation(fields: [userId], references: [id])
+    userId       Int
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+}

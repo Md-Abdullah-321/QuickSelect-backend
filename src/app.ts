@@ -14,7 +14,8 @@ import express, {
   Response,
 } from "express";
 import { errorResponse } from "./controllers/responseController.js";
-import emailRouter from "./routers/emailRouters.js";
+import authRouter from "./routers/authRouter.js";
+import emailRouter from "./routers/emailRouter.js";
 const app = express();
 
 //Handle Global Middleware
@@ -31,6 +32,7 @@ app.get("/", (req, res) => {
 
 //Add All Routers
 app.use("/api/email", emailRouter);
+app.use("/api/auth", authRouter);
 
 //Handle Global Middleware
 const errorHandler: ErrorRequestHandler = (
