@@ -1,0 +1,13 @@
+model SMTP {
+    id       Int    @id @default(autoincrement())
+    email    String
+    host     String
+    port     Int
+    password String
+
+    user   User @relation(fields: [userId], references: [id])
+    userId Int  @unique
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+}

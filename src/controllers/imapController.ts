@@ -63,7 +63,6 @@ export const handlePostIMAPConfig = async (
         host,
         port,
         tls: true,
-        authTimeout: parseInt(process.env.AUTH_TIMEOUT as string),
         userId: user.id,
       },
     });
@@ -172,7 +171,6 @@ export const handleUpdateIMAPConfig = async (
         host,
         port,
         tls: true,
-        authTimeout: parseInt(process.env.AUTH_TIMEOUT as string),
       },
     });
 

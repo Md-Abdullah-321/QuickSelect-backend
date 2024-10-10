@@ -39,7 +39,7 @@ export const handleGetAllEmails = async (
         tlsOptions: {
           rejectUnauthorized: false,
         },
-        authTimeout: Number(imapConfig?.authTimeout),
+        authTimeout: Number(process.env.AUTH_TIMEOUT),
       },
     };
 
@@ -102,7 +102,7 @@ export const handleGetEmailByDate = async (
         tlsOptions: {
           rejectUnauthorized: false,
         },
-        authTimeout: Number(imapConfig?.authTimeout),
+        authTimeout: Number(process.env.AUTH_TIMEOUT),
       },
     };
 

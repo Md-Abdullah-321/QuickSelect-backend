@@ -15,4 +15,5 @@ model User {
     updatedAt      DateTime @updatedAt
 
     IMAP IMAP?
+    SMTP SMTP?
 }
