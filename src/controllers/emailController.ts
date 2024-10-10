@@ -9,6 +9,7 @@ import { PrismaClient } from "@prisma/client";
 import dotenv from "dotenv";
 import { NextFunction, Request, Response } from "express";
 import { isEmailDateInRange } from "../helper/compareDate.js";
+import { sendEmail } from "../helper/sendEmail.js";
 import { getEmails } from "../helpers/getEmails.js";
 import { IMAPConfigTypes } from "../Types/IMAPTypes.js";
 import { errorResponse, successResponse } from "./responseController.js";
@@ -129,6 +130,61 @@ export const handleGetEmailByDate = async (
       statusCode: 200,
       message: "Emails fetched successfully",
       payload: formattedEmails,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+//03. send Email:
+export const handleSendEmail = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const { to, subject, message } = req.body;
+    if (!to || !subject || !message) {
+      return errorResponse(res, {
+        statusCode: 400,
+        message: "All fields are required!",
+      });
+    }
+    const user = await (req as any).user;
+
+    if (!user || !user.id) {
+      return errorResponse(res, {
+        statusCode: 401,
+        message: "Unauthorized: User information is missing.",
+      });
+    }
+
+    const smtpConfig = await prisma.sMTP.findFirst({
+      where: {
+        userId: user.id,
+      },
+    });
+
+    if (!smtpConfig) {
+      return errorResponse(res, {
+        statusCode: 404,
+        message: "SMTP configuration not found.",
+      });
+    }
+
+    await sendEmail(
+      smtpConfig.email,
+      smtpConfig.host,
+      smtpConfig.port,
+      smtpConfig.password,
+      to,
+      subject,
+      message
+    );
+
+    return successResponse(res, {
+      statusCode: 200,
+      message: "Email sent successfully",
     });
   } catch (error) {
     next(error);
