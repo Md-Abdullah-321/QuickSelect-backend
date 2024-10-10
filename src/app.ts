@@ -16,6 +16,7 @@ import express, {
 import { errorResponse } from "./controllers/responseController.js";
 import authRouter from "./routers/authRouter.js";
 import emailRouter from "./routers/emailRouter.js";
+import imapRouter from "./routers/imapRouter.js";
 const app = express();
 
 //Handle Global Middleware
@@ -32,6 +33,7 @@ app.get("/", (req, res) => {
 
 //Add All Routers
 app.use("/api/email", emailRouter);
+app.use("/api/imap", imapRouter);
 app.use("/api/auth", authRouter);
 
 //Handle Global Middleware

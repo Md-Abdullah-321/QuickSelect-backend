@@ -1,16 +1,19 @@
 /**
- * Title: Query routers
- * Description: Handle query routers for API.
+ * Title: Email routers
+ * Description: Handle Email routers for API.
  * Author: Md Abdullah
- * Date: 06/10/2024
+ * Date: 10/10/2024
  */
 
 import express from "express";
-import { handleGetEmails } from "../controllers/emailController.js";
-
+import {
+  handleGetAllEmails,
+  handleGetEmailByDate,
+} from "../controllers/emailController.js";
+import { isLoggedIn } from "../middleware/isLoggedIn.js";
 const emailRouter = express.Router();
 
-// Define the route and attach the handler
-emailRouter.post("/", handleGetEmails);
+emailRouter.get("/search", isLoggedIn, handleGetEmailByDate);
+emailRouter.get("/", isLoggedIn, handleGetAllEmails);
 
 export default emailRouter;
